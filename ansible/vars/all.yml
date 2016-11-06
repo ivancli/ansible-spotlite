@@ -1,0 +1,39 @@
+---
+server:
+    install: '1'
+    packages: [git, htop, nodejs, npm]
+    timezone: Australia/Sydney
+    locale: en_US.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: spotlite-dev, ip: 192.168.44.101, memory: '1024', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+apache:
+    install: '1'
+    docroot: /var/www/html/spotlite/public
+    servername: app.spotlite.dev
+mysql:
+    install: '1'
+    root_password: secret
+    database: spotlite
+    user: spotlite
+    password: secret
+    dump: ''
+redis:
+    install: '1'
+    port: '6379'
+beanstalkd:
+    install: '1'
+    listenAddress: 0.0.0.0
+    listenPort: '13000'
+    version: '1.10'
+    user: beanstalkd
+    persistent: 'yes'
+    storage: /var/lib/beanstalkd
+php:
+    install: '1'
+    ppa: php5-5.6
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql, php5-curl]
+composer:
+    install: '1'
+app:
+    environment: 'dev'

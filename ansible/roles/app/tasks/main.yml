@@ -1,0 +1,48 @@
+---
+# application tasks to be customized and to run after the main provision
+
+
+- name: Set up SpotLite app
+  sudo: yes
+  git:
+    repo: https://github.com/ketchol/spotlite.git
+    dest: /var/www/html/spotlite
+
+- name: Copy environment file
+  sudo: yes
+  template:
+    src: files/{{ app.environment }}.env
+    dest: /var/www/html/spotlite/.env
+
+- name: Copy ssh config file
+  sudo: yes
+  template:
+    src: files/ssh_forwarding
+    dest: /root/.ssh/config
+
+- name: Run composer install
+  composer:
+    command: "install"
+    working_dir: "/var/www/html/spotlite"
+
+#
+#- name: Generate key
+#  command: php artisan key:generate
+#    args:
+#      chdir: /var/www/html/spotlite
+#
+#- name: Run script clear.sh
+#  command: sh clear.sh
+#    args:
+#      chdir: /var/www/html/spotlite
+#
+#- name: Migrate DB
+#  command: php artisan migrate
+#    args:
+#      chdir: /var/www/html/spotlite
+#
+#- name: Seed DB
+#  command: php artisan db:seed
+#    args:
+#      chdir: /var/www/html/spotlite
+#

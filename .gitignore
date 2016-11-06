@@ -1,0 +1,4 @@
+app/*
+.idea
+ansible/files/ansible-deployment
+ansible/files/dev.env
